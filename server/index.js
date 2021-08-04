@@ -3,11 +3,15 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 
+import postRoutes from "./routes/posts.js";
+
 const app = express();
+
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
+app.use("/posts", postRoutes);
 const CONNECTION_URL =
   "mongodb+srv://arpit:kanpur123@cluster0.67p0y.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000;
