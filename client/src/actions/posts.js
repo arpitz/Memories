@@ -2,6 +2,18 @@ import * as api from "../api";
 import * as actions from "../constants/actionTypes";
 
 // Action Creators
+
+export const getPost = (page) => async (dispatch) => {
+  try {
+    dispatch({ type: actions.START_LOADING });
+    const { data } = await api.fetchPost(page);
+    dispatch({ type: actions.FETCH_POST, payload: data });
+    dispatch({ type: actions.END_LOADING });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const getPosts = (page) => async (dispatch) => {
   try {
     dispatch({ type: actions.START_LOADING });
@@ -26,10 +38,11 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   }
 };
 
-export const createPost = (post) => async (dispatch) => {
+export const createPost = (post, history) => async (dispatch) => {
   try {
     dispatch({ type: actions.START_LOADING });
     const { data } = await api.createPost(post);
+    history.push(`/posts/${data._id}`);
     dispatch({ type: actions.CREATE, payload: data });
     dispatch({ type: actions.END_LOADING });
   } catch (error) {

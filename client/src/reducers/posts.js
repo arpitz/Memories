@@ -18,6 +18,11 @@ const reducer = (state = { isLoading: true, posts: [] }, action) => {
         ...state,
         posts: action.payload,
       };
+    case actions.FETCH_POST:
+      return {
+        ...state,
+        post: action.payload,
+      };
     case actions.CREATE:
       return { ...state, posts: [...state.posts, action.payload] };
     case actions.UPDATE:
