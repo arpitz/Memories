@@ -17,8 +17,14 @@ export const getPost = (page) => async (dispatch) => {
 export const getPosts = (page) => async (dispatch) => {
   try {
     dispatch({ type: actions.START_LOADING });
-    const { data } = await api.fetchPosts(page);
-    dispatch({ type: actions.FETCH_ALL, payload: data });
+    const {
+      data: { data, currentPage, numberOfPages },
+    } = await api.fetchPosts(page);
+
+    dispatch({
+      type: actions.FETCH_ALL,
+      payload: { data, currentPage, numberOfPages },
+    });
     dispatch({ type: actions.END_LOADING });
   } catch (error) {
     console.log(error.message);
@@ -42,9 +48,8 @@ export const createPost = (post, history) => async (dispatch) => {
   try {
     dispatch({ type: actions.START_LOADING });
     const { data } = await api.createPost(post);
-    history.push(`/posts/${data._id}`);
     dispatch({ type: actions.CREATE, payload: data });
-    dispatch({ type: actions.END_LOADING });
+    history.push(`/posts/${data._id}`);
   } catch (error) {
     console.log(error.message);
   }

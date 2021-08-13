@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
     borderRadius: "20px",
     objectFit: "cover",
     width: "100%",
-    maxHeight: "600px",
+    maxHeight: "400px",
   },
   card: {
     display: "flex",
@@ -28,9 +28,16 @@ export default makeStyles((theme) => ({
   },
   recommendedPosts: {
     display: "flex",
+    flexWrap: "wrap",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
     },
+  },
+  recom_post: {
+    margin: "20px",
+    cursor: "pointer",
+    flexGrow: 0,
+    flexBasis: "20%",
   },
   loadingPaper: {
     display: "flex",
